@@ -111,4 +111,16 @@ public class SocioController {
         socioService.deleteSocioById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    
+    /**
+     * 
+     * @param socioId
+     * @param associatedSocioId
+     * 
+     */
+    @PostMapping(path = "/{socioId}/{associatedSocioId}")
+    public ResponseEntity<SocioDTO> addSociobyIds(@PathVariable("socioId") Long socioId, @PathVariable("associatedSocioId") Long associatedSocioId) {
+        socioService.addSociobyIds(socioId, associatedSocioId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

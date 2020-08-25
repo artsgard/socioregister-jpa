@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.artsgard.socioregister.DTO.SocioDTO;
+import com.artsgard.socioregister.exception.ResourceNotFoundException;
 import com.artsgard.socioregister.model.SocioModel;
 import com.artsgard.socioregister.repository.SocioRepository;
 import com.artsgard.socioregister.service.SocioService;
@@ -169,5 +170,17 @@ public class SocioServiceImpl implements SocioService {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public void addSociobyIds(Long socioId, Long associatedSocioId) {
+      Optional<SocioModel> opt1 =  socioRepò.findById(socioId);
+      Optional<SocioModel> opt2 = socioRepò.findById(associatedSocioId);
+      
+      if(opt1.isPresent() && opt2.isPresent()) {
+          socioRepò.addByIds(socioId, associatedSocioId);
+      } else {
+          throw new ResourceNotFoundException("No Socio present with the following ids" + socioId + "  /  " + associatedSocioId);
+      }
     }
 }
