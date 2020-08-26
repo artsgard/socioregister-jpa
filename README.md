@@ -33,24 +33,26 @@ Testing is still "work in progress"
 
 Specific Info SocioRegister-jpa =====================================
 
-The jpa-version get closer to the final application SocioRegister, to be used in the Docker-Container. The basic architecture of Controllers/ Services/ Repositories is already present at the previous SocioRegsiter-mock. Now, at SocioRegsiter-jpa, three new important layers are added: 1) Spring-Data (spring-boot-starter-data-jpa) connecting to a postgres DB (see pom postgresql); 2) Validation Messages javax.validation 3) Spring REST Exception Handeling.
+The jpa-version gets closer to the final application SocioRegister, to be used in the Docker-Container. The basic architecture of Controllers/ Services/ Repositories is already present at the previous SocioRegsiter-mock. Now, at SocioRegsiter-jpa, three new important layers are added: 1) Spring-Data (spring-boot-starter-data-jpa) connecting to a postgres DB (see pom postgresql); 2) Validation Messages javax.validation 3) Spring REST Exception Handeling.
 
 Spring-Data
 
-Revising the pom note the dependencies added, and take a look at the SocioModel Entity (there is still only one Pojo here). There are some fields added, password and more interestingly the list associatedSocios, where the added associated-socios will be stored (a many-to-many recursive field at socioModel). Note also the annotations for Hibernate/JPA (javax.persistence) and the DB-field validation. These subjects you should study at Spring-Data JPA.
+Revising the pom note the dependencies added, and take a look at the SocioModel Entity (there is still only one Pojo present). There are some fields added, password and more interestingly the list associatedSocios, where the added associated-socios will be stored (a many-to-many recursive field at socio-table). Note also the annotations for Hibernate/JPA (javax.persistence) and the DB-field validation anottations. These subjects you should study reading about Spring-Data and JPA.
 
 Backend Validation
 
-The javax.validation lib is part of the Springboot web-starter dependency. Springboot autoconfig will dothe rest, meaning: 1) add annoations at the Pojo-classes 2) insert this line at the resources/application.properties spring.messages.basename=messages 3) create a messages.properties at resources directory and add the validation lines e.g. like this: NotNull.socioDTO.email=email is Mandetory!
+The javax.validation lib is part of the Springboot web-starter dependency. Springboot auto-config will do the rest. What you have to do is the following: 1) add validation-annoations at the Pojo-classes; 2) insert the next line at the resources/application.properties spring.messages.basename=messages 3) create a messages.properties at resources directory and add the validation lines e.g. a line like this: NotNull.socioDTO.email=email is Mandetory!
 
 -NotNull is the annotation name;
 
--socioDTO is the class name
+-socioDTO is the class name;
 
--email is the field with the annotation NotNull of the above class socioDTO
+-email is the field with the annotation NotNull of the above class socioDTO;
+
+-next the text to appear at the error json object (remember there is no view at a REST-app).
 
 Spring Exception Handeling
 
-See the exception directory concerning the following comments.
+See the exception directory (com.artsgard.socioregister.exception) concerning the following comments.
 
 
