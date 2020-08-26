@@ -21,7 +21,7 @@ public final class SocioMock {
      */
     public static SocioModel generateSocio() {
         Timestamp now = new Timestamp(System.currentTimeMillis());
-        SocioModel socio = new SocioModel(1L, "js", "Johann Sebastian", "Bach", "jsbach@gmail.com", true);
+        SocioModel socio = new SocioModel(1L, "js", "secret", "Johann Sebastian", "Bach", "jsbach@gmail.com", true);
         return socio;
     }
     
@@ -31,11 +31,11 @@ public final class SocioMock {
      */
     public static List<SocioModel> generateSocios() {
         Timestamp now = new Timestamp(System.currentTimeMillis());
-        SocioModel socio1 = new SocioModel(1L, "js", "Johann Sebastian", "Bach", "jsbach@gmail.com", true);
+        SocioModel socio1 = new SocioModel(1L, "js", "secret", "Johann Sebastian", "Bach", "jsbach@gmail.com", true);
         socio1.setRegisterDate(now);
-        SocioModel socio2 = new SocioModel(2L, "rw", "Richard", "Wagner", "rwagner@gmail.com", true);
+        SocioModel socio2 = new SocioModel(2L, "rw", "secret", "Richard", "Wagner", "rwagner@gmail.com", true);
         socio2.setRegisterDate(now);
-        SocioModel socio3 = new SocioModel(3L, "bb", "Bela", "Bartok", "bbartok@gmail.com", true);
+        SocioModel socio3 = new SocioModel(3L, "bb", "secret", "Bela", "Bartok", "bbartok@gmail.com", true);
         socio3.setRegisterDate(now);
         List<SocioModel> socios = new ArrayList();
         socios.add(socio1);

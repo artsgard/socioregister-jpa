@@ -10,7 +10,6 @@ import javax.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 /**
  * 
  * @author WillemDragstra
@@ -27,25 +26,26 @@ public class SocioDTO implements Serializable {
     @Size(min = 2, max = 20)
     private String username;
     
+    @NotEmpty
+    @NotNull
+    private String password;
     private String firstName;
-    
     private String lastName;
     
     @NotEmpty
     @NotNull
     @Email
     private String email;
-    
     private Timestamp registerDate;
    
     @NotNull
     private Boolean active;
-    
     private List<SocioDTO> associatedSocios;
 
-    public SocioDTO(Long id, String username, String firstName, String lastName, String email, Boolean active) {
+    public SocioDTO(Long id, String username, String password, String firstName, String lastName, String email, Boolean active) {
         this.id = id;
         this.username = username;
+        this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

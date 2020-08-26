@@ -45,7 +45,7 @@ public class ServiceImplTest {
 
     @Test
     public void saveSocioTest() {
-        SocioModel socio = new SocioModel(null, "username", "first name", "last name", "username@gmail.com", true);
+        SocioModel socio = new SocioModel(null, "username", "secret", "first name", "last name", "username@gmail.com", true);
         socio.setRegisterDate(new Timestamp(System.currentTimeMillis()));
         repo.save(socio);
         assertThat(socio.getId()).isNotNull();
@@ -65,7 +65,7 @@ public class ServiceImplTest {
 
     @Test
     public void deleteSocioByIdTest() {
-        SocioModel socio = new SocioModel(null, "username to delete", "first name to delete", "last name to delete", "todelete@gmail.com", true);
+        SocioModel socio = new SocioModel(null, "username to delete", "secret to delete", "first name to delete", "last name to delete", "todelete@gmail.com", true);
         socio.setRegisterDate(new Timestamp(System.currentTimeMillis()));
         repo.save(socio);
         Long id = socio.getId();

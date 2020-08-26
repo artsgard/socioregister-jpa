@@ -1,6 +1,5 @@
 package com.artsgard.socioregister.controller;
 
-import com.artsgard.socioregister.controller.SocioController;
 import com.artsgard.socioregister.mock.SocioMock;
 import com.artsgard.socioregister.DTO.SocioDTO;
 import com.artsgard.socioregister.service.MapperService;
@@ -120,7 +119,7 @@ public class SocioControllerSpringTest {
 
     @Test
     public void testSaveSocio() throws Exception {
-        SocioDTO socio = new SocioDTO(1L, "js edited", "Johann Sebastian", "Bach", "jsbach@gmail.com", true);
+        SocioDTO socio = new SocioDTO(1L, "js edited", "secret", "Johann Sebastian", "Bach", "jsbach@gmail.com", true);
         socio.setRegisterDate(new Timestamp(1479250540110L));
         MockHttpServletResponse response = mockMvc
                 .perform(MockMvcRequestBuilders.post("/socio/")
@@ -134,7 +133,7 @@ public class SocioControllerSpringTest {
 
     @Test
     public void testUpdatesocio() throws Exception {
-        SocioDTO socio = new SocioDTO(1L, "js edited", "Johann Sebastian", "Bach", "jsbach@gmail.com", true);
+        SocioDTO socio = new SocioDTO(1L, "js edited", "secret", "Johann Sebastian", "Bach", "jsbach@gmail.com", true);
         socio.setRegisterDate(new Timestamp(1479250540110L));
         given(socioService.updateSocio(socio, 1L)).willReturn(socio);
         

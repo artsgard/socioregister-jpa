@@ -20,12 +20,13 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "socio") //, catalog = "socio_small_db")
+@Table(name = "socio") //, catalog = "socio_db") , schema = "socio_db")
 public class SocioModel implements Serializable {
 
-    public SocioModel(Long id, String username, String firstName, String lastName, String email, Boolean active) {
+    public SocioModel(Long id, String username, String password, String firstName, String lastName, String email, Boolean active) {
         this.id = id;
         this.username = username;
+        this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -39,6 +40,10 @@ public class SocioModel implements Serializable {
     @NotNull
     @Column(name = "username", nullable = false, unique = true)
     private String username;
+    
+    @NotNull
+    @Column(name = "password", nullable = false, unique = false)
+    private String password;
 
     @Column(name = "first_name", nullable = true)
     private String firstName;
@@ -62,6 +67,4 @@ public class SocioModel implements Serializable {
     @JoinTable(name = "socio_associated_socio", joinColumns = @JoinColumn(name = "socio_id"),
             inverseJoinColumns = @JoinColumn(name = "associated_socio_id"))
     private List<SocioModel> associatedSocios;
-
-    
 }

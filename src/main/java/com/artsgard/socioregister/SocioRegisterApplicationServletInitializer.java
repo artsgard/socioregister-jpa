@@ -4,10 +4,9 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 /**
- * 
  * @author artsgard
- * To generate a war to deploy you need this class and you need to change in the pom the jar into war
- * After the build you will find the war at the target folder
+ * To generate a war to deploy you need this class and you need to change in the pom jar into war
+ * After the build you will find the war, to deploy at a server (Tomcat), at the target folder
  */
 public class SocioRegisterApplicationServletInitializer extends SpringBootServletInitializer {
 

@@ -173,7 +173,7 @@ public class SocioServiceImpl implements SocioService {
     }
 
     @Override
-    public void addSociobyIds(Long socioId, Long associatedSocioId) {
+    public void addAssociatedSociobyIds(Long socioId, Long associatedSocioId) {
       Optional<SocioModel> opt1 =  socioRepò.findById(socioId);
       Optional<SocioModel> opt2 = socioRepò.findById(associatedSocioId);
       

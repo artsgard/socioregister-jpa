@@ -23,8 +23,8 @@ public class MapperServiceTest {
 
     @BeforeEach
     public void setup() {
-        socioMockDTO = new SocioDTO(1L, "js", "Johann Sebastian", "Bach", "jsbach@gmail.com", true);
-        socioMockModel = new SocioModel(1L, "js", "Johann Sebastian", "Bach", "jsbach@gmail.com", true);
+        socioMockDTO = new SocioDTO(1L, "js", "secret", "Johann Sebastian", "Bach", "jsbach@gmail.com", true);
+        socioMockModel = new SocioModel(1L, "js", "secret", "Johann Sebastian", "Bach", "jsbach@gmail.com", true);
     }
 
     @Test

@@ -19,5 +19,5 @@ public interface SocioService  {
     void deleteSocioById(Long id);
     boolean isSocioActiveById(Long id);
     boolean hasSocioById(Long id);
-    void addSociobyIds(Long socioId, Long associatedSocioId);
+    void addAssociatedSociobyIds(Long socioId, Long associatedSocioId);
 }

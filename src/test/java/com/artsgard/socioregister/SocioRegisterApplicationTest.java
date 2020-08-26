@@ -11,6 +11,6 @@ public class SocioRegisterApplicationTest {
 
     @Test
     public void contextLoads() {
-        
+        // test the spring context
     }
 }
