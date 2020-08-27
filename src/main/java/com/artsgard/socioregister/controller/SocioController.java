@@ -71,8 +71,7 @@ public class SocioController {
     @PostMapping(produces = "application/json", consumes = "application/json")
     public ResponseEntity<SocioDTO> saveSocio(@Valid @RequestBody SocioDTO socioDTO) {
         SocioDTO socio = socioService.saveSocio(socioDTO);
-        return new ResponseEntity<>(socio, HttpStatus.CREATED);
-        //return ResponseEntity.status(HttpStatus.CREATED).body(socio);
+        return new ResponseEntity<>(socio, HttpStatus.CREATED); //return ResponseEntity.status(HttpStatus.CREATED).body(socio);
     }
 
     /**
