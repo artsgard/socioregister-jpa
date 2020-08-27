@@ -71,4 +71,16 @@ Spring Exception Handeling
 
 See the exception directory (com.artsgard.socioregister.exception) concerning the following comments. 
 
+There are many ways to implement exception handeling in Java. I picked the global exception handeling based on the @ControllerAdvice annotation and the class extention of RestResponseEntityExceptionHandler (see pls the RestExceptionHandler at the exception dir).
+
+At socioregister-jpa I am interested in only two type of exceptions: ValidationError and ResourceNotFoundException. For listing those errors I use a helper class called ErrorDetail.
+
+If you like to add more declared error classes (which extends RuntimeException), don't forget to add the @ExceptionHandler annotation at each single method concerning you error class:
+
+	@ExceptionHandler(ResourceNotFoundException.class)
+	
+With the validation massages in place, and the throw ResourceNotFoundException clause present, the cross-cutting @RestControllerAdvice will help to communicate the error, in the form of a json object, to the front-end!
+
+At the next readme of the final socioregister application I will go more into Testing and DB initialization.
+
 
