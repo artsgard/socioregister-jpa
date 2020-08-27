@@ -81,6 +81,41 @@ If you like to add more declared error classes (which extends RuntimeException),
 	
 With the validation massages in place, and the throw ResourceNotFoundException clause present, the cross-cutting @RestControllerAdvice will help to communicate the error, in the form of a json object, to the front-end!
 
+The use-cases are very similar to the previous socioregister-mock:
+
+	-http://localhost:8081/socio
+
+	-http://localhost:8081/socio/2
+
+	-http://localhost:8081/socio/username/js
+
+And by using Postman:
+
+	-post http://localhost:8081/socio  
+		{
+			"username": "pb",
+			"password": "secret",
+			"firstName": "Pierre",
+			"lastName": "Boulez",
+			"email": "boulez@gmail.com",
+			"active": true 
+		} 
+  
+	-put http://localhost:8081/socio/4
+		{
+			"id": 4,
+			"username": "pbxxx",
+			"password": "secret",
+			"firstName": "Pierre",
+			"lastName": "Boulez",
+			"email": "boulez@gmail.com",
+			"active": true 
+		} 
+   
+	-delete http://localhost:8081/socio/4
+
+	-add a associated socio: post http://localhost:8081/socio/3/4
+
 At the next readme of the final socioregister application I will go more into Testing and DB initialization.
 
 
