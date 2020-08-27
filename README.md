@@ -111,10 +111,13 @@ And by using Postman:
 			"email": "boulez@gmail.com",
 			"active": true 
 		} 
-   
+		
+    -add a associated socio: post http://localhost:8081/socio/3/4    (means: add socio (associated)
+	with id 4 to socio with id 3)
+	
 	-delete http://localhost:8081/socio/4
 
-	-add a associated socio: post http://localhost:8081/socio/3/4
+	
 
 At the next readme of the final socioregister application I will go more into Testing and DB initialization.
 
