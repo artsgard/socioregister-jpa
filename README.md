@@ -37,7 +37,7 @@ The jpa-version gets closer to the final application SocioRegister, to be used i
 
 Spring-Data
 
-Revising the pom note the dependencies added, and take a look at the SocioModel Entity (there is still only one Pojo present). There are some fields added, password and more interestingly the list associatedSocios, where the added associated-socios will be stored (a many-to-many recursive field at socio-table). Note also the annotations for Hibernate/JPA (javax.persistence) and the DB-field validation anottations. These subjects you should study reading about Spring-Data and JPA.
+Revising the pom note the dependencies added, and take a good look at the SocioModel Entity (there is still only one Pojo present). There are some fields added, password and more interestingly one finds a list of associatedSocios, where the added associated-socios will be stored (a many-to-many field at socio-table). Note also the annotations for Hibernate/JPA (javax.persistence) and the DB-field validation anottations. These subjects you should study and read about Spring-Data and JPA.
 
 Backend Validation
 
@@ -47,7 +47,7 @@ The javax.validation lib is part of the Springboot web-starter dependency. Sprin
 
 2) in case you name the external error message file error-messages.properties (which is not the standard name of Spring auto-config messages), insert the next line at the resources/application.properties spring.messages.basename=error-messages
 
-3) create a messages.properties at resources directory and add the validation lines e.g. a line like this: NotNull.socioDTO.email=email is Mandetory!
+3) create a error-messages.properties file at the resources directory and add e.g. the line: NotNull.socioDTO.email=email is Mandetory!
 
 -NotNull is the annotation name;
 
@@ -55,11 +55,11 @@ The javax.validation lib is part of the Springboot web-starter dependency. Sprin
 
 -email is the field with the annotation NotNull of the above class socioDTO;
 
--next write the text to appear at the error json object: email is Mandetory! (remember there is no view at a REST-app).
+-next write the text to appear at the error json object: email is Mandetory!
 
-4) add the @Valid annotation at the beginning of the controller arguments indicating that the RequestBody demands validation;
+4) add the @Valid annotation at the beginning of the controller arguments, indicating that its RequestBody demands validation;
 
-5) In order for the error-message to appear at the json object that will be sent to the front-end-page one needs to touch the RestExceptionHandler extends ResponseEntityExceptionHandler class. First inject (@Autowired) MessageSource messageSource; and next add each error to a list which form part of the ErrorDetail class (com.artsgard.socioregister.exception):
+5) In order for the error-message to appear at the json object that will be sent to the front-end-page, one needs to touch the RestExceptionHandler extends ResponseEntityExceptionHandler class. First inject (@Autowired) MessageSource messageSource; and next add each error to a list which forms part of the ErrorDetail class (com.artsgard.socioregister.exception):
 
 
 		validationError.setMessage(messageSource.getMessage(fe, null));
