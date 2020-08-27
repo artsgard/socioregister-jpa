@@ -50,12 +50,7 @@ public class SocioController {
      */
     @GetMapping(path = "/{id}", produces = "application/json")
     public ResponseEntity<SocioDTO> findSocioById(@PathVariable Long id) {
-        SocioDTO socio = socioService.findSocioById(id);
-        if (socio != null) {
-            return new ResponseEntity<>(socio, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return new ResponseEntity<>(socioService.findSocioById(id), HttpStatus.OK);
     }
 
     /**
@@ -64,13 +59,8 @@ public class SocioController {
      * @return single socio
      */
     @GetMapping(path = "/username/{username}", produces = "application/json")
-    public ResponseEntity<SocioDTO> findSocioByUsername(@PathVariable String username) {
-        SocioDTO socio = socioService.findSocioByUsername(username);
-        if (socio != null) {
-            return new ResponseEntity<>(socio, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<SocioDTO> findSocioByUsername(@PathVariable String username) {   
+        return new ResponseEntity<>(socioService.findSocioByUsername(username), HttpStatus.OK);
     }
 
     /**
@@ -93,12 +83,7 @@ public class SocioController {
      */
     @PutMapping(path = "/{id}", produces = "application/json", consumes = "application/json")
     public ResponseEntity<SocioDTO> updateSocio(@Valid @RequestBody SocioDTO socioDTO, @PathVariable Long id) {
-        SocioDTO socio = socioService.updateSocio(socioDTO, id);
-        if (socio != null) {
-            return new ResponseEntity<>(socio, HttpStatus.CREATED);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return new ResponseEntity<>(socioService.updateSocio(socioDTO, id), HttpStatus.CREATED);
     }
 
     /**

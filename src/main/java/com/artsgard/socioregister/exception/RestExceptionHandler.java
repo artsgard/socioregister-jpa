@@ -1,6 +1,5 @@
 package com.artsgard.socioregister.exception;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,10 +19,10 @@ import org.springframework.context.NoSuchMessageException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestControllerAdvice //https://medium.com/@jovannypcg/understanding-springs-controlleradvice-cd96a364033f
+@RestControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
-    org.slf4j.Logger logger = LoggerFactory.getLogger( RestExceptionHandler.class);
+    org.slf4j.Logger logger = LoggerFactory.getLogger(RestExceptionHandler.class);
     
     @Autowired
     private MessageSource messageSource;
@@ -53,10 +52,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         errorDetail.setDeveloperMessage(manve.getClass().getName());
 
         List<FieldError> fieldErrors = manve.getBindingResult().getFieldErrors();
-        int cnt = 0;
         for (FieldError fe : fieldErrors) {
-            cnt++;
-            System.out.println(cnt + ") " + fe.getField() + "  /  " + fe.getCode() + "  /  " + fe.getObjectName() + "  /  " + fe.getDefaultMessage());
             List<ValidationError> validationErrorList = errorDetail.getErrors().
                     get(fe.getField());
             
@@ -86,15 +82,5 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         errorDetail.setDeveloperMessage(rnfe.getClass().getName());
 
         return new ResponseEntity<>(errorDetail, null, HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler(SQLException.class)
-    public ResponseEntity handleSQLException() {
-        ErrorDetail errorDetail = new ErrorDetail();
-        errorDetail.setTimeStamp(new Date().getTime());
-        errorDetail.setStatus(HttpStatus.NOT_FOUND.value());
-        errorDetail.setTitle("Validation Error Message");
-
-        return new ResponseEntity<>(errorDetail, null, HttpStatus.I_AM_A_TEAPOT);
     }
 }
