@@ -41,7 +41,13 @@ Revising the pom note the dependencies added, and take a look at the SocioModel 
 
 Backend Validation
 
-The javax.validation lib is part of the Springboot web-starter dependency. Springboot auto-config will do the rest. What you have to do is the following: 1) add validation-annoations at the Pojo-classes; 2) insert the next line at the resources/application.properties spring.messages.basename=messages 3) create a messages.properties at resources directory and add the validation lines e.g. a line like this: NotNull.socioDTO.email=email is Mandetory!
+The javax.validation lib is part of the Springboot web-starter dependency. Springboot auto-config will do the rest. What you have to do is the following: 
+
+1) add validation-annoations at the Pojo-classes (SocioDTO, field email, add @NotEmpty, @NotNull, @Email); 
+
+2) in case you name the external error message file error-messages.properties (which is not the standard name of Spring auto-config messages), insert the next line at the resources/application.properties spring.messages.basename=error-messages
+
+3) create a messages.properties at resources directory and add the validation lines e.g. a line like this: NotNull.socioDTO.email=email is Mandetory!
 
 -NotNull is the annotation name;
 
@@ -49,10 +55,20 @@ The javax.validation lib is part of the Springboot web-starter dependency. Sprin
 
 -email is the field with the annotation NotNull of the above class socioDTO;
 
--next the text to appear at the error json object (remember there is no view at a REST-app).
+-next write the text to appear at the error json object: email is Mandetory! (remember there is no view at a REST-app).
+
+4) add the @Valid annotation at the beginning of the controller arguments indicating that the RequestBody demands validation;
+
+5) In order for the error-message to appear at the json object that will be sent to the front-end-page one needs to touch the RestExceptionHandler extends ResponseEntityExceptionHandler class. First inject (@Autowired) MessageSource messageSource; and next add each error to a list which form part of the ErrorDetail class (com.artsgard.socioregister.exception):
+
+
+		validationError.setMessage(messageSource.getMessage(fe, null));
+        validationErrorList.add(validationError);  
+		errorDetail.getErrors().put(fe.getField(), validationErrorList);
+
 
 Spring Exception Handeling
 
-See the exception directory (com.artsgard.socioregister.exception) concerning the following comments.
+See the exception directory (com.artsgard.socioregister.exception) concerning the following comments. 
 
 
