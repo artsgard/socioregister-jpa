@@ -17,15 +17,15 @@ From SocioRegister-jpa one finds backend-Validation (javax) and REST-Exception H
 
 Testing, in general, will have an important focus and since we are dealing with Spring(boot) there will systematically testing based on five mayor strategies:
 
--@ExtendWith(MockitoExtension.class)
+	-@ExtendWith(MockitoExtension.class)
 
--@ExtendWith(SpringExtension.class) standalone setup (two ways)
+	-@ExtendWith(SpringExtension.class) standalone setup (two ways)
 
--@ExtendWith(SpringExtension.class) server tests (@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+	-@ExtendWith(SpringExtension.class) server tests (@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 
--@DataJpaTest wich is database testing on H2
+	-@DataJpaTest wich is database testing on H2
 
--Spring Batch testing
+	-Spring Batch testing
 
 Testing is still "work in progress"
 
@@ -49,13 +49,13 @@ The javax.validation lib is part of the Springboot web-starter dependency. Sprin
 
 3) create a error-messages.properties file at the resources directory and add e.g. the line: NotNull.socioDTO.email=email is Mandetory!
 
--NotNull is the annotation name;
+	-NotNull is the annotation name;
 
--socioDTO is the class name;
+	-socioDTO is the class name;
 
--email is the field with the annotation NotNull of the above class socioDTO;
+	-email is the field with the annotation NotNull of the above class socioDTO;
 
--next write the text to appear at the error json object: email is Mandetory!
+	-next write the text to appear at the error json object: email is Mandetory!
 
 4) add the @Valid annotation at the beginning of the controller arguments, indicating that its RequestBody demands validation;
 
