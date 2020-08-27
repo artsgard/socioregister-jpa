@@ -8,7 +8,7 @@ import org.springframework.context.annotation.PropertySource;
 
 @SpringBootApplication
 @PropertySource({"classpath:application.properties", "classpath:postgres.properties"})
-@ComponentScan("com.artsgard")
+@ComponentScan("com.artsgard.socioregister")
 
 public class SocioRegisterApplication {
 
