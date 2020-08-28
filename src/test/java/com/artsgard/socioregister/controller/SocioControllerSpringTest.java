@@ -151,9 +151,14 @@ public class SocioControllerSpringTest {
 
     @Test
     public void testDeleteSocio() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders.delete("/socio/{id}", "1")
-            .contentType(MediaType.APPLICATION_JSON)
-            .accept(MediaType.APPLICATION_JSON))
+        this.mockMvc.perform(MockMvcRequestBuilders.delete("/socio/{id}", "1"))
+            .andExpect(status().isOk());
+    }
+    
+     
+    @Test
+    public void testAddAssociatedSociobyIds() throws Exception {
+          this.mockMvc.perform(MockMvcRequestBuilders.post("/socio/{socioId}/{associatedSocioId}", "1", "2"))
             .andExpect(status().isOk());
     }
 }
