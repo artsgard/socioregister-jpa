@@ -1,5 +1,5 @@
-# socioregister-jpa
-A Springboot REST application to register and add Socios (third step with jpa CRUDS )
+# 3) socioregister-jpa
+A Springboot REST application to register and add Socios (third step with jpa/postgres socioregister-CRUDS )
 
 1) General Info About the Socio-Micro-Service-Demo
 
