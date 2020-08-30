@@ -7,7 +7,7 @@ A Springboot REST application to register and add Socios (third step with jpa/po
 
 
 
-General Info =====================================
+## General Info ====
 
 The Socio Micro Services Project will consist of about 10 small (backend) Springboot applications, deployed in a Docker Container/ Linux Oracle Virtual Box. SocioRegister is the principal part of a series of four applications called: starter, mock, jpa, socioregister. Together they show a stepwise buildup to a Springboot REST application, which contains use-cases for registering and adding Socios (similar to Facebook). This line of applications goes from an almost empty Springboot shell (starter: one controller method only) to a small but full-fledged REST application: SocioRegister which will be used as a component of our micro-services.
 
@@ -31,15 +31,15 @@ Testing is still "work in progress"
 
 
 
-Specific Info SocioRegister-jpa =====================================
+## Specific Info SocioRegister-jpa ====
 
 The jpa-version gets closer to the final application SocioRegister, to be used in the Docker-Container. The basic architecture of Controllers/ Services/ Repositories is already present at the previous SocioRegsiter-mock. Now, at SocioRegsiter-jpa, three new important layers are added: 1) Spring-Data (spring-boot-starter-data-jpa) connecting to a postgres DB (see pom postgresql); 2) Validation Messages javax.validation 3) Spring REST Exception Handeling.
 
-Spring-Data
+### Spring-Data
 
 Revising the pom note the dependencies added, and take a good look at the SocioModel Entity (there is still only one Pojo present). There are some fields added, password and more interestingly one finds a list of associatedSocios, where the added associated-socios will be stored (a many-to-many field at socio-table). Note also the annotations for Hibernate/JPA (javax.persistence) and the DB-field validation anottations. These subjects you should study and read about Spring-Data and JPA.
 
-Backend Validation
+### Backend Validation
 
 The javax.validation lib is part of the Springboot web-starter dependency. Springboot auto-config will do the rest. What you have to do is the following: 
 
@@ -67,7 +67,7 @@ The javax.validation lib is part of the Springboot web-starter dependency. Sprin
 		errorDetail.getErrors().put(fe.getField(), validationErrorList);
 
 
-Spring Exception Handeling
+### Spring Exception Handeling
 
 See the exception directory (com.artsgard.socioregister.exception) concerning the following comments. 
 
@@ -80,6 +80,8 @@ If you like to add more declared error classes (which extends RuntimeException),
 	@ExceptionHandler(ResourceNotFoundException.class)
 	
 With the validation massages in place, and the throw ResourceNotFoundException clause present, the cross-cutting @RestControllerAdvice will help to communicate the error, in the form of a json object, to the front-end!
+
+### Use-cases
 
 The use-cases are very similar to the previous socioregister-mock:
 
