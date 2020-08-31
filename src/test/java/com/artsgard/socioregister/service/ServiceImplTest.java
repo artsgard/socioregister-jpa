@@ -20,6 +20,13 @@ public class ServiceImplTest {
     @Autowired
     private SocioRepository repo;
     
+    public static final Long NON_EXISTING_ID = 7000L;
+    public static final String NON_EXISTING_USERNAME = "SDFSDFSFSDFSDF";
+    
+    private Long existingId;
+    private Long existingSecondId;
+    private String existingUsername;
+    
     @BeforeEach
     public void setup() {
         repo.deleteAll();
@@ -38,6 +45,9 @@ public class ServiceImplTest {
         socios.add(socio3);
 
         repo.saveAll(socios);
+        existingId = socio1.getId();
+        existingSecondId = socio2.getId();
+        existingUsername = socio1.getUsername();
     }
 
     @Test
@@ -53,7 +63,7 @@ public class ServiceImplTest {
     }
     
     @Test
-    public void findAllSociosTest_in_case_noe_found() {
+    public void findAllSociosTest_not_found() {
         repo.deleteAll();
         List<SocioModel> socios = repo.findAll();
         assertThatExceptionOfType(ResourceNotFoundException.class);
@@ -61,26 +71,26 @@ public class ServiceImplTest {
 
     @Test
     public void findSocioByIdTest() {
-        SocioModel sc = repo.getOne(1L);
+        SocioModel sc = repo.getOne(existingId);
         assertThat(sc).isNotNull();
     }
     
     @Test
     public void findSocioByIdTest_not_found() {
-        SocioModel sc = repo.getOne(700L);
+        SocioModel sc = repo.getOne(NON_EXISTING_ID);
         assertThatExceptionOfType(ResourceNotFoundException.class);
     }
 
     @Test
     public void findSocioByUsernameTest() {
-        Optional<SocioModel> optSocio = repo.findByUsername("js");
+        Optional<SocioModel> optSocio = repo.findByUsername(existingUsername);
         assertThat(optSocio.get().getId()).isNotNull();
-        assertThat(optSocio.get().getUsername()).isEqualTo("js");
+        assertThat(optSocio.get().getUsername()).isEqualTo(existingUsername);
     }
     
     @Test
     public void findSocioByUsernameTest_not_found() {
-        Optional<SocioModel> optSocio = repo.findByUsername("xxxxxxxxx");
+        Optional<SocioModel> optSocio = repo.findByUsername(NON_EXISTING_USERNAME);
         assertThatExceptionOfType(ResourceNotFoundException.class);
     }
 
@@ -95,8 +105,7 @@ public class ServiceImplTest {
 
     @Test
     public void updateSocioTest() {
-
-        Optional<SocioModel> optSocio = repo.findByUsername("js");
+        Optional<SocioModel> optSocio = repo.findById(existingId);
         SocioModel updateSocio = optSocio.get();
         updateSocio.setUsername("js edited");
         updateSocio.setActive(false);
@@ -117,20 +126,20 @@ public class ServiceImplTest {
 
     @Test
     public void hasSocioByIdTest() {
-        Optional<SocioModel> optSocio = repo.findByUsername("js");
+        Optional<SocioModel> optSocio = repo.findById(existingId);
         SocioModel socio = optSocio.get();
         assertThat(repo.existsById(socio.getId())).isTrue();
     }
     
     @Test
     public void hasSocioByIdTest_not_found() {
-        Optional<SocioModel> optSocio = repo.findByUsername("xxxxxxxxx");
+        Optional<SocioModel> optSocio = repo.findById(NON_EXISTING_ID);
         assertThat(optSocio.isPresent()).isFalse();
     }
 
     @Test
     public void isSocioActiveByIdTest() {
-        Optional<SocioModel> optSocio = repo.findByUsername("js");
+        Optional<SocioModel> optSocio = repo.findById(existingId);
         SocioModel socio = optSocio.get();
         socio.setActive(Boolean.FALSE);
         repo.save(socio);
@@ -139,8 +148,8 @@ public class ServiceImplTest {
 
     @Test
     public void addAssociatedSociobyIds() {
-        Optional<SocioModel> opt1 = repo.findByUsername("js");
-        Optional<SocioModel> opt2 = repo.findByUsername("bb");
+        Optional<SocioModel> opt1 = repo.findById(existingId);
+        Optional<SocioModel> opt2 = repo.findById(existingSecondId);
         repo.addAssociatedSocioBySocioIds(opt1.get().getId(), opt2.get().getId());
         opt1.get().getAssociatedSocios().add(opt1.get());
         assertThat(opt1.get().getAssociatedSocios().size()).isEqualTo(1);
@@ -148,9 +157,8 @@ public class ServiceImplTest {
 
     @Test
     public void addAssociatedSociobyIds_not_found() {
-        Optional<SocioModel> opt1 = repo.findByUsername("js");
-        Long idNotPresent = new Long("700000"); // not present
-        Optional<SocioModel> opt2 = repo.findById(idNotPresent);
+        Optional<SocioModel> opt1 = repo.findById(existingId);
+        Optional<SocioModel> opt2 = repo.findById(NON_EXISTING_ID);
         assertThatExceptionOfType(ResourceNotFoundException.class);
     }
 }
