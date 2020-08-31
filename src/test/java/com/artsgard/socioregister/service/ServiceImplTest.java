@@ -37,14 +37,10 @@ public class ServiceImplTest {
         socios.add(socio2);
         socios.add(socio3);
 
-        
         repo.saveAll(socios);
-        
-        //repo.addAssociatedSocioBySocioIds(socio1.getId(), socio2.getId());
-        //repo.addAssociatedSocioBySocioIds(socio1.getId(), socio3.getId());
     }
 
-    //@Test
+    @Test
     public void injectedComponentsAreNotNull() {
         assertThat(repo).isNotNull();
     }
