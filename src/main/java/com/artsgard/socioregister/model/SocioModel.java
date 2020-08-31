@@ -2,6 +2,7 @@ package com.artsgard.socioregister.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -66,5 +67,5 @@ public class SocioModel implements Serializable {
     @ManyToMany
     @JoinTable(name = "socio_associated_socio", joinColumns = @JoinColumn(name = "socio_id"),
             inverseJoinColumns = @JoinColumn(name = "associated_socio_id"))
-    private List<SocioModel> associatedSocios;
+    private List<SocioModel> associatedSocios = new ArrayList();
 }

@@ -20,5 +20,5 @@ public interface SocioService  {
     void deleteSocioById(Long id);
     boolean isSocioActiveById(Long id) throws ResourceNotFoundException;
     boolean hasSocioById(Long id);
-    void addAssociatedSociobyIds(Long socioId, Long associatedSocioId) throws ResourceNotFoundException;
+    void addAssociatedSocioBySocioIds(Long socioId, Long associatedSocioId) throws ResourceNotFoundException;
 }

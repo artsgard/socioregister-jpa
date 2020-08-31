@@ -7,9 +7,11 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 @DataJpaTest
@@ -17,9 +19,33 @@ public class ServiceImplTest {
 
     @Autowired
     private SocioRepository repo;
+    
+    @BeforeEach
+    public void setup() {
+        repo.deleteAll();
+        List<SocioModel> list = repo.findAll();
+        Timestamp now = new Timestamp(System.currentTimeMillis());
+        SocioModel socio1 = new SocioModel(null, "js", "secret", "Johann Sebastian", "Bach", "jsbach@gmail.com", true);
+        socio1.setRegisterDate(now);
+        SocioModel socio2 = new SocioModel(null, "rw", "secret", "Richard", "Wagner", "rwagner@gmail.com", true);
+        socio2.setRegisterDate(now);
+        SocioModel socio3 = new SocioModel(null, "bb", "secret", "Bela", "Bartok", "bbartok@gmail.com", true);
+        socio3.setRegisterDate(now);
+        List<SocioModel> socios = new ArrayList();
+   
+        socios.add(socio1);
+        socios.add(socio2);
+        socios.add(socio3);
 
-    @Test
-    void injectedComponentsAreNotNull() {
+        
+        repo.saveAll(socios);
+        
+        //repo.addAssociatedSocioBySocioIds(socio1.getId(), socio2.getId());
+        //repo.addAssociatedSocioBySocioIds(socio1.getId(), socio3.getId());
+    }
+
+    //@Test
+    public void injectedComponentsAreNotNull() {
         assertThat(repo).isNotNull();
     }
 
@@ -28,6 +54,13 @@ public class ServiceImplTest {
         List<SocioModel> socios = repo.findAll();
         assertThat(socios).isNotEmpty();
         assertThat(socios).hasSize(3);
+    }
+    
+    @Test
+    public void findAllSociosTest_in_case_noe_found() {
+        repo.deleteAll();
+        List<SocioModel> socios = repo.findAll();
+        assertThatExceptionOfType(ResourceNotFoundException.class);
     }
 
     @Test
@@ -110,21 +143,18 @@ public class ServiceImplTest {
 
     @Test
     public void addAssociatedSociobyIds() {
-        Long id1 = new Long("1");
-        Long id2 = new Long("2");
-        Optional<SocioModel> opt1 = repo.findById(id1);
-        Optional<SocioModel> opt2 = repo.findById(id2);
-
-        assertThat(opt1.isPresent()).isTrue();
-        assertThat(opt2.isPresent()).isTrue();
+        Optional<SocioModel> opt1 = repo.findByUsername("js");
+        Optional<SocioModel> opt2 = repo.findByUsername("bb");
+        repo.addAssociatedSocioBySocioIds(opt1.get().getId(), opt2.get().getId());
+        opt1.get().getAssociatedSocios().add(opt1.get());
+        assertThat(opt1.get().getAssociatedSocios().size()).isEqualTo(1);
     }
 
     @Test
     public void addAssociatedSociobyIds_not_found() {
-        Long id1 = new Long("1");
-        Long id2 = new Long("700"); // not present
-        repo.findById(id1);
-        repo.findById(id2);
+        Optional<SocioModel> opt1 = repo.findByUsername("js");
+        Long idNotPresent = new Long("700000"); // not present
+        Optional<SocioModel> opt2 = repo.findById(idNotPresent);
         assertThatExceptionOfType(ResourceNotFoundException.class);
     }
 }

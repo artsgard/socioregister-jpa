@@ -20,5 +20,5 @@ public interface SocioRepository extends JpaRepository<SocioModel, Long> {
     @Modifying
     @Transactional
     @Query(value = INSERT_ASSOCIATED_SOCIO_BY_IDS, nativeQuery = true)
-    void addByIds(@Param("socioId") Long socioId, @Param("associatedSocioId") Long associatedSocioId);
+    void addAssociatedSocioBySocioIds(@Param("socioId") Long socioId, @Param("associatedSocioId") Long associatedSocioId);
 }

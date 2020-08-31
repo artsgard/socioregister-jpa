@@ -105,7 +105,7 @@ public class SocioController {
      */
     @PostMapping(path = "/{socioId}/{associatedSocioId}")
     public ResponseEntity<SocioDTO> addAssociatedSociobyIds(@PathVariable("socioId") Long socioId, @PathVariable("associatedSocioId") Long associatedSocioId) {
-        socioService.addAssociatedSociobyIds(socioId, associatedSocioId);
+        socioService.addAssociatedSocioBySocioIds(socioId, associatedSocioId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

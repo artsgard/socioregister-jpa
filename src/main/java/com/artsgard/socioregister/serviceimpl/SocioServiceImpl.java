@@ -142,12 +142,12 @@ public class SocioServiceImpl implements SocioService {
     }
 
     @Override
-    public void addAssociatedSociobyIds(Long socioId, Long associatedSocioId) throws ResourceNotFoundException {
+    public void addAssociatedSocioBySocioIds(Long socioId, Long associatedSocioId) throws ResourceNotFoundException {
         Optional<SocioModel> opt1 = socioRepo.findById(socioId);
         Optional<SocioModel> opt2 = socioRepo.findById(associatedSocioId);
 
         if (opt1.isPresent() && opt2.isPresent()) {
-            socioRepo.addByIds(socioId, associatedSocioId);
+            socioRepo.addAssociatedSocioBySocioIds(socioId, associatedSocioId);
         } else {
             logger.error("No Socio present with socio id:" + socioId + " and or associated socio id:  " + associatedSocioId);
             throw new ResourceNotFoundException("No Socio present with socio id:" + socioId + " and or associated socio id:  " + associatedSocioId);
