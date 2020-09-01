@@ -30,7 +30,7 @@ public class ServiceImplTest {
     @BeforeEach
     public void setup() {
         repo.deleteAll();
-        List<SocioModel> list = repo.findAll();
+        repo.findAll();
         Timestamp now = new Timestamp(System.currentTimeMillis());
         SocioModel socio1 = new SocioModel(null, "js", "secret", "Johann Sebastian", "Bach", "jsbach@gmail.com", true);
         socio1.setRegisterDate(now);
